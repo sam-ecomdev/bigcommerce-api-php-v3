@@ -1,0 +1,90 @@
+swagger: '2.0'
+info:
+  title: Data Model for BigCommerce's unstable Bulk Catalog Download API
+  version: v0.0.1
+host: "api.bigcommerce.com"
+basePath: "/stores/{store_id}/unstable"
+tags:
+  - name: BulkCatalogDownload
+    description: BigCommerce Bulk Catalog Download API Definition.
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /catalog-download/create-job:
+    post:
+      description: Creates a new catalog download job.
+      operationId: new-catalog-download
+      parameters:
+        - name: resources
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/BulkDownloadCreateJobRequesteData"
+      tags:
+        - BulkDownload
+      responses:
+        200:
+          description: Returns Bulk Download Job creation confirmation.
+          schema:
+            $ref: "#/definitions/BulkDownloadJobCreateData"
+        404:
+          description: Error.
+  /catalog-download/jobs/{job_id} :
+    get:
+      description: Get the download url for a job.
+      operationId: get-catalog-download
+      parameters:
+        - name: job_id
+          in: path
+          required: true
+          type: string
+          format: UUID
+          description: Job ID.
+        tags:
+          - BulkDownload
+        responses:
+          200:
+            description: Returns Bulk Download Job link.
+            schema:
+              $ref: "#/definitions/BulkDownloadJobData"
+          404:
+            description: Error.
+definitions:
+  BulkDownloadCreateJobRequestData:
+    type: object
+    properties:
+      subresources:
+        type: array
+      product_ids:
+        type: array
+  BulkDownloadJobCreateData:
+    type: object
+    properties:
+      data:
+        $ref: "#/definitions/BulkDownloadCreateNewJobResponseData"
+  BulkDownloadCreateNewJobResponseData:
+    type: object
+    properties:
+      id:
+        type: string
+      status:
+        type: string
+      status_link:
+        type: string
+  BulkDownloadJobData:
+    type: object
+    properties:
+      data:
+        $ref: "#/definitions/BulkDownloadJobDataBody"
+  BulkDownloadJobDataBody:
+    type: object
+      properties:
+        download_url:
+          type: string
+        percentage:
+          type: int
+        status:
+          type: string
+
