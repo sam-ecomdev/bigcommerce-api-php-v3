@@ -2,7 +2,7 @@ swagger: '2.0'
 info:
   title: Data Model for BigCommerce's unstable Bulk Catalog Download API
   version: v0.0.1
-host: "api.bigcommerce.com"
+host: "bulk-api.bigcommerce.tools"
 basePath: "/stores/{store_id}/unstable"
 tags:
   - name: BulkCatalogDownload
@@ -17,11 +17,11 @@ paths:
       description: Creates a new catalog download job.
       operationId: new-catalog-download
       parameters:
-        - name: resources
+        - name: jobData
           in: body
           required: true
           schema:
-            $ref: "#/definitions/BulkDownloadCreateJobRequesteData"
+            $ref: "#/definitions/BulkDownloadCreateJobRequestData"
       tags:
         - BulkDownload
       responses:
@@ -31,26 +31,26 @@ paths:
             $ref: "#/definitions/BulkDownloadJobCreateData"
         404:
           description: Error.
-  /catalog-download/jobs/{job_id} :
+  /catalog-download/jobs/{job_id}:
     get:
       description: Get the download url for a job.
       operationId: get-catalog-download
       parameters:
-        - name: job_id
+        - name: "job_id"
           in: path
           required: true
           type: string
           format: UUID
           description: Job ID.
-        tags:
-          - BulkDownload
-        responses:
-          200:
-            description: Returns Bulk Download Job link.
-            schema:
-              $ref: "#/definitions/BulkDownloadJobData"
-          404:
-            description: Error.
+      tags:
+        - BulkDownload
+      responses:
+        200:
+          description: Returns Bulk Download Job link.
+          schema:
+            $ref: "#/definitions/BulkDownloadJobData"
+        404:
+          description: Error.
 definitions:
   BulkDownloadCreateJobRequestData:
     type: object
@@ -80,11 +80,10 @@ definitions:
         $ref: "#/definitions/BulkDownloadJobDataBody"
   BulkDownloadJobDataBody:
     type: object
-      properties:
-        download_url:
-          type: string
-        percentage:
-          type: int
-        status:
-          type: string
-
+    properties:
+      download_url:
+        type: string
+      percentage:
+        type: integer
+      status:
+        type: string
