@@ -97,7 +97,8 @@ class ProductPost extends ProductBase implements ArrayAccess
         'open_graph_use_image' => 'bool',
         'custom_fields' => '\BigCommerce\Api\v3\Model\CustomFieldPost[]',
         'bulk_pricing_rules' => '\BigCommerce\Api\v3\Model\BulkPricingRulePost[]',
-        'variants' => '\BigCommerce\Api\v3\Model\VariantProductPost[]'
+        'variants' => '\BigCommerce\Api\v3\Model\VariantProductPost[]',
+        'images' => '\BigCommerce\Api\v3\Model\ProductImagePost[]'
     ];
 
     public static function swaggerTypes()
@@ -166,7 +167,8 @@ class ProductPost extends ProductBase implements ArrayAccess
         'open_graph_use_image' => 'open_graph_use_image',
         'custom_fields' => 'custom_fields',
         'bulk_pricing_rules' => 'bulk_pricing_rules',
-        'variants' => 'variants'
+        'variants' => 'variants',
+        'images' => 'images'
     ];
 
     /**
@@ -230,7 +232,8 @@ class ProductPost extends ProductBase implements ArrayAccess
         'open_graph_use_image' => 'setOpenGraphUseImage',
         'custom_fields' => 'setCustomFields',
         'bulk_pricing_rules' => 'setBulkPricingRules',
-        'variants' => 'setVariants'
+        'variants' => 'setVariants',
+        'images' => 'setImages'
     ];
 
     /**
@@ -294,7 +297,8 @@ class ProductPost extends ProductBase implements ArrayAccess
         'open_graph_use_image' => 'getOpenGraphUseImage',
         'custom_fields' => 'getCustomFields',
         'bulk_pricing_rules' => 'getBulkPricingRules',
-        'variants' => 'getVariants'
+        'variants' => 'getVariants',
+        'images' => 'getImages'
     ];
 
     public static function attributeMap()
@@ -491,6 +495,7 @@ class ProductPost extends ProductBase implements ArrayAccess
         $this->container['custom_fields'] = array_key_exists('custom_fields', $data) ? $data['custom_fields'] : null;
         $this->container['bulk_pricing_rules'] = array_key_exists('bulk_pricing_rules', $data) ? $data['bulk_pricing_rules'] : null;
         $this->container['variants'] = array_key_exists('variants', $data) ? $data['variants'] : null;
+        $this->container['variants'] = array_key_exists('images', $data) ? $data['images'] : null;
     }
 
     /**
@@ -2302,6 +2307,27 @@ class ProductPost extends ProductBase implements ArrayAccess
     public function setVariants($variants)
     {
         $this->container['variants'] = $variants;
+
+        return $this;
+    }
+
+    /**
+     * Gets images
+     * @return \BigCommerce\Api\v3\Model\ProductImagePost[]
+     */
+    public function getImages()
+    {
+        return $this->container['images'];
+    }
+
+    /**
+     * Sets variants
+     * @param \BigCommerce\Api\v3\Model\ProductImagePost[] $variants
+     * @return $this
+     */
+    public function setImages($images)
+    {
+        $this->container['images'] = $images;
 
         return $this;
     }
